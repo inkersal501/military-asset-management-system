@@ -5,7 +5,7 @@ const addAssignmentOrExpenditure = async (data, userId) => {
     ...data,
     recordedBy: userId,
   });
-  return await record.save();
+  return record;
 };
 
 const getAllAssignments = async () => {

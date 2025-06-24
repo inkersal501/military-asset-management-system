@@ -12,7 +12,7 @@ const registerUser = async ({
 }) => {
   password = await bcrypt.hash(password, 10);
   const newUser = userModel.create({ username, password, email, role, baseId });
-  return await newUser.save();
+  return newUser;
 };
 
 const loginUser = async ({ email, password }) => {

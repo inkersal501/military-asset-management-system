@@ -1,0 +1,56 @@
+#root {
+  width: 100%;
+  margin: 0px;
+  padding: 0px; 
+}
+ 
+h1, h2, h3, h4, h5, h6 {
+  font-weight: bold !important;
+}
+.bg-primary {
+  background-color: var(--primary);
+}
+.bg-white {
+  background-color: #fff;
+}
+.border-primary {
+  border: 1px solid var(--primary)!important;
+}
+.text-primary {
+  color: var(--primary) !important;
+}
+
+.btn {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+.btn-light {
+  background-color: var(--light-bg);
+  color: var(--text-dark);
+  padding: 8px 20px;
+  border-radius: 9px;
+  cursor: pointer;
+}
+.input {
+  padding: 8px 16px;
+  border-radius: 9px;
+  border: 1px solid #ccc;
+}
+
+.input:hover,
+.input:focus {
+  border-color: var(--primary) !important;
+}
+
+.input:focus-visible {
+  outline: var(--primary) !important
+}
+.navlink:hover {
+  color: yellow;
+}
+.navlink.active{ 
+  color: yellow;
+}

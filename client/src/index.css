@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400; 
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --primary: #3B5323;
+  --secondary: #C3B091;
+  --dark-bg : #5C4033;
+  --light-bg: #F5F5DC;
+  --text-dark: #2F4F4F;
+  --text-light: #EDE7D2;
+  --text-success: #4B5320;
+  --text-danger: #800000;
+}
+ 

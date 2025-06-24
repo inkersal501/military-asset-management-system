@@ -7,7 +7,7 @@ const addPurchaseRecord = async ({ assetType, quantity, baseId }, userId) => {
     baseId,
     createdBy: userId,
   });
-  return await purchase.save();
+  return purchase;
 };
 
 const getPurchasesByBase = async (baseId) => {

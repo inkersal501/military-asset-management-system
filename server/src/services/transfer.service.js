@@ -8,7 +8,7 @@ const createTransferRecord = async ( { assetType, quantity, fromBase, toBase }, 
     toBase,
     transferredBy: userId,
   });
-  return await transfer.save();
+  return transfer;
 };
 
 const getAllTransfers = async () => {
