@@ -1,12 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../store/authSlice";
 
 function Navbar() {
     
+    const role = useSelector((state) => state.auth.user.role);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    
     const handleLogout = () => {
         dispatch(logout()); 
         navigate("/");
@@ -23,24 +24,30 @@ function Navbar() {
                 >
                     Dashboard
                 </NavLink>
+                {["admin", "logistics"].includes(role) && 
                 <NavLink
                     to="/purchases"
                     className={({ isActive }) => isActive ? "navlink active" : "navlink"}
                 >
                     Purchases
                 </NavLink>
+                }
+                {["admin", "logistics"].includes(role) && 
                 <NavLink
                     to="/transfers"
                     className={({ isActive }) => isActive ? "navlink active" : "navlink"}
                 >
                     Transfers
                 </NavLink>
+                }
+                {["admin", "commander"].includes(role) && 
                 <NavLink
                     to="/assignments"
                     className={({ isActive }) => isActive ? "navlink active" : "navlink"}
                 >
                     Assignments
                 </NavLink>
+                }
                 <button
                     onClick={handleLogout}
                     className="btn-light"
