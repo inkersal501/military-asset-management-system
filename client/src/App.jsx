@@ -14,6 +14,7 @@ import "./App.css";
 import Register from "./pages/Register";
 
 function App() {
+  
   const isLoggedin = useSelector((state) => state.auth.isLoggedin);
 
   return (

@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { addPurchase, getPurchases } from "../services/purchase";
 import { getBases } from "../services/base";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function Purchases() {
 
-    const token = localStorage.getItem("token");
+    const token = useSelector((state) => state.auth.user.token);
+    const [showForm, setShowForm] = useState(false);
     const [bases, setBases] = useState([]);
     const [form, setForm] = useState({
         assetType: "",
@@ -36,8 +38,8 @@ function Purchases() {
             fetchPurchases();
         } catch (error) {
             console.error("Error adding purchase:", error);
-            alert("Failed to add purchase.");
-        }
+            toast.error("Failed to add purchase.");
+        } 
     }; 
 
     useEffect(() => {
@@ -63,8 +65,14 @@ function Purchases() {
   
     return (
         <div className="p-6">
-            <h2 className="text-2xl font-bold mb-4 text-primary">Purchase Assets</h2>
-
+            <div className="flex justify-between">
+                <h2 className="text-2xl font-bold mb-4 text-primary">Purchase Assets</h2>
+                <div>
+                    <button className="btn" onClick={()=>setShowForm(true)}>Log Purchase</button>
+                </div>
+            </div>
+            
+            {showForm &&
             <form
                 onSubmit={handleSubmit}
                 className="bg-white p-8 rounded shadow-lg rounded-2xl mb-8 space-y-4 w-full max-w-lg"
@@ -109,14 +117,13 @@ function Purchases() {
                         ))}
                     </select>
                 </div>
-                <button
-                    type="submit"
-                    className="btn"
-                >
-                    Submit Purchase
-                </button>
+                <div className="flex justify-between">
+                    <button className="btn" onClick={()=>setShowForm(false)}>Close</button>
+                    <button type="submit" className="btn">Submit Purchase</button>
+                </div>
+                
             </form>
-
+            }
             <h3 className="text-xl font-bold mb-3">Purchase History</h3>
             <div className="bg-white p-4 rounded shadow overflow-x-auto">
                 <table className="min-w-full table-auto text-sm">

@@ -38,22 +38,22 @@ const getDashboardMetrics = async (baseId, date) => {
     },
   ]);
 
-    const formatGroup = (groupArr) => {
-        const map = {};
-        groupArr.forEach((g) => {
-            map[g._id] = g.total;
-        });
-        return map;
-    };
+  const formatGroup = (groupArr) => {
+    const map = {};
+    groupArr.forEach((g) => {
+      map[g._id] = g.total;
+    });
+    return map;
+  };
 
-    return {
-        opening: {
-            purchases: formatGroup(openingPurchases),
-            transferIn: formatGroup(openingIn),
-            transferOut: formatGroup(openingOut),
-            assignments: formatGroup(assignments),
-        },
-    };
+  return {
+    opening: {
+      purchases: formatGroup(openingPurchases),
+      transferIn: formatGroup(openingIn),
+      transferOut: formatGroup(openingOut),
+      assignments: formatGroup(assignments),
+    },
+  };
 };
 
-export default {getDashboardMetrics};
+export default { getDashboardMetrics };

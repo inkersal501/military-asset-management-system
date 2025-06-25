@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { getDashboardStats } from "../services/dashboard";
 import StatCard from "../components/StatCard";
- import { getBases } from "../services/base";
+import { getBases } from "../services/base";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function Dashboard() {
 
-    const token = localStorage.getItem("token");
+    const token = useSelector((state) => state.auth.user.token);
     const [bases, setBases] = useState([]);
     const [filters, setFilters] = useState({
         baseId: "",

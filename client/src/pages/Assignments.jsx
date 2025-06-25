@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { assignAsset, getAssignments } from "../services/assignment";
 import { toast } from "react-toastify";
 import { getBases } from "../services/base";
+import { useSelector } from "react-redux";
 
 function Assignments() {
 
-    const token = localStorage.getItem("token");
+    const token = useSelector((state) => state.auth.user.token);
+    const [showForm, setShowForm] = useState(false);
     const [bases, setBases] = useState([]);
     const [form, setForm] = useState({
         assetType: "",
@@ -28,7 +30,7 @@ function Assignments() {
             fetchAssignments();
         } catch (error) {
             console.error("Error assigning asset:", error);
-            alert("Failed to assign asset.");
+            toast.error("Failed to assign asset.");
         }
     };
 
@@ -62,8 +64,13 @@ function Assignments() {
 
     return (
         <div className="p-6">
-            <h2 className="text-2xl font-bold mb-4 text-primary">Assign or Expend Assets</h2>
-
+            <div className="flex justify-between">
+                <h2 className="text-2xl font-bold mb-4 text-primary">Assign or Expend Assets</h2>
+                <div>
+                    <button className="btn" onClick={()=>setShowForm(true)}>Assign Asset</button>
+                </div>
+            </div> 
+            {showForm &&
             <form
                 onSubmit={handleSubmit}
                 className="bg-white p-8 rounded shadow-lg rounded-2xl mb-8 space-y-4 w-full max-w-lg"
@@ -118,14 +125,14 @@ function Assignments() {
                         ))}
                     </select>
                 </div>
-
-                <button
-                    type="submit"
-                    className="btn"
-                >
-                    Assign Asset
-                </button>
+ 
+                <div className="flex justify-between">
+                    <button className="btn" onClick={()=>setShowForm(false)}>Close</button>
+                    <button type="submit" className="btn">Assign Asset</button>
+                </div>
+                
             </form>
+            }   
 
             <h3 className="text-xl font-bold mb-3">Assignment & Expenditure History</h3>
             <div className="bg-white p-4 rounded shadow overflow-x-auto">
@@ -154,7 +161,7 @@ function Assignments() {
                         {assignments.length === 0 && (
                         <tr>
                             <td colSpan="6" className="text-center py-3 text-gray-500">
-                                No assignment records found.
+                                No assignment found.
                             </td>
                         </tr>
                         )}

@@ -16,8 +16,7 @@ function Login() {
         e.preventDefault();
         try {
             const data = await loginUser(email, password);
-            dispatch(login(data));
-            localStorage.setItem("token", data.token);
+            dispatch(login(data)); 
             navigate("/dashboard");
         } catch (err) {
             console.log(err);

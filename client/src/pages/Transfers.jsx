@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { addTransfer, getTransfers } from "../services/transfer";
 import { getBases } from "../services/base";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 function Transfers() {
     
-    const token = localStorage.getItem("token");
+    const token = useSelector((state) => state.auth.user.token);
+    const [showForm, setShowForm] = useState(false);
     const [bases, setBases] = useState([]);
     const [form, setForm] = useState({
         assetType: "",
@@ -28,7 +30,7 @@ function Transfers() {
             fetchTransfers();
         } catch (err) {
             console.error("Transfer Error:", err);
-            alert("Failed to submit transfer");
+            toast.error("Failed to submit transfer");
         }
     };
 
@@ -60,9 +62,15 @@ function Transfers() {
     }, []);
 
     return (
-        <div className="p-6">
-            <h2 className="text-2xl font-bold mb-4 text-primary">Transfer Assets Between Bases</h2>
+        <div className="p-6"> 
 
+            <div className="flex justify-between">
+                <h2 className="text-2xl font-bold mb-4 text-primary">Transfer Assets Between Bases</h2>
+                <div>
+                    <button className="btn" onClick={()=>setShowForm(true)}>Transfer Assets</button>
+                </div>
+            </div> 
+            {showForm &&
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow-lg rounded-2xl mb-8 space-y-4 w-full max-w-lg">
                 <div>
                     <label className="block font-semibold">Asset Type</label>
@@ -116,13 +124,14 @@ function Transfers() {
                             </option>
                         ))}
                     </select>
+                </div> 
+                <div className="flex justify-between">
+                    <button className="btn" onClick={()=>setShowForm(false)}>Close</button>
+                    <button type="submit" className="btn">Transfer Asset</button>
                 </div>
-
-                <button type="submit" className="btn">
-                    Transfer Asset
-                </button>
+                
             </form>
-
+            }   
             <h3 className="text-xl font-bold mb-3">Transfer History</h3>
             <div className="bg-white p-4 rounded shadow overflow-x-auto">
                 <table className="min-w-full table-auto text-sm">
@@ -150,7 +159,7 @@ function Transfers() {
                         {transfers.length === 0 && (
                         <tr>
                             <td colSpan="6" className="text-center py-3 text-gray-500">
-                                No transfers recorded.
+                                No transfers found.
                             </td>
                         </tr>
                         )}
