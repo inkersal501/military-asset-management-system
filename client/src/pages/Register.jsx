@@ -103,6 +103,7 @@ function Register() {
           className="input w-full mb-4"
           required
         >
+          <option value="">Select Base</option>
           {bases.map((base) => (
             <option key={base._id} value={base._id}>
               {base.name}

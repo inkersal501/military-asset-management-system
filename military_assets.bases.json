@@ -1,0 +1,28 @@
+[{
+  "_id": {
+    "$oid": "68598809704f8a4c7c8cea7b"
+  },
+  "name": "Base Delhi",
+  "location": "Delhi"
+},
+{
+  "_id": {
+    "$oid": "68598809704f8a4c7c8cea7c"
+  },
+  "name": "Base Mumbai",
+  "location": "Mumbai"
+},
+{
+  "_id": {
+    "$oid": "68598809704f8a4c7c8cea7d"
+  },
+  "name": "Base Chennai",
+  "location": "Chennai"
+},
+{
+  "_id": {
+    "$oid": "68598809704f8a4c7c8cea7e"
+  },
+  "name": "Base Coimbatore",
+  "location": "Tamil Nadu"
+}]
