@@ -22,26 +22,27 @@ function Assignments() {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    const fetchAssignments = async () => {
+        try {
+            const data = await getAssignments(token); 
+            setAssignments(data);
+        } catch (error) {
+            console.error("Error fetching assignments:", error);
+        }
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await assignAsset(form, token);
+            toast.success("Assigned Assets.");
             setForm({ assetType: "", quantity: "", personnelName: "", baseId: "" });
             fetchAssignments();
         } catch (error) {
             console.error("Error assigning asset:", error);
             toast.error("Failed to assign asset.");
         }
-    };
-
-    const fetchAssignments = async () => {
-        try {
-            const data = await getAssignments(token);
-            setAssignments(data);
-        } catch (error) {
-            console.error("Error fetching assignments:", error);
-        }
-    };
+    };    
 
     useEffect(() => {
         fetchAssignments();
@@ -118,6 +119,7 @@ function Assignments() {
                         className="input w-full mb-4"
                         required
                         > 
+                        <option value="">Select Option</option>
                         {bases.map((base) => (
                             <option key={base._id} value={base._id}>
                             {base.name}
@@ -154,7 +156,7 @@ function Assignments() {
                             <td className="px-3 py-2">{a.assetType}</td>
                             <td className="px-3 py-2">{a.quantity}</td>
                             <td className="px-3 py-2">{a.personnelName}</td>
-                            <td className="px-3 py-2">{a.base?.name || a.baseId}</td>
+                            <td className="px-3 py-2">{a.baseId?.name || a.baseId}</td>
                             <td className="px-3 py-2">{new Date(a.createdAt).toLocaleDateString()}</td>
                         </tr>
                         ))}

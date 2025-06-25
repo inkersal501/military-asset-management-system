@@ -12,26 +12,14 @@ function Transfers() {
     const [form, setForm] = useState({
         assetType: "",
         quantity: "",
-        fromBaseId: "",
-        toBaseId: ""
+        fromBase: "",
+        toBase: ""
     });
 
     const [transfers, setTransfers] = useState([]);
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await addTransfer(form, token);
-            setForm({ assetType: "", quantity: "", fromBaseId: "", toBaseId: "" });
-            fetchTransfers();
-        } catch (err) {
-            console.error("Transfer Error:", err);
-            toast.error("Failed to submit transfer");
-        }
     };
 
     const fetchTransfers = async () => {
@@ -43,6 +31,19 @@ function Transfers() {
         }
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await addTransfer(form, token);
+            toast.success("Transferred Assets.");
+            setForm({ assetType: "", quantity: "", fromBase: "", toBase: "" });
+            fetchTransfers();
+        } catch (err) {
+            console.error("Transfer Error:", err);
+            toast.error("Failed to submit transfer");
+        }
+    };
+  
     useEffect(() => {
         fetchTransfers();
         //eslint-disable-next-line
@@ -96,12 +97,13 @@ function Transfers() {
                 <div>
                     <label className="block font-semibold">From Base</label>
                     <select
-                        name="fromBaseId"
-                        value={form.fromBaseId}
+                        name="fromBase"
+                        value={form.fromBase}
                         onChange={handleChange}
                         className="input w-full mb-4"
                         required
                     > 
+                    <option value="">Select Option</option>
                         {bases.map((base) => (
                             <option key={base._id} value={base._id}>
                             {base.name}
@@ -112,12 +114,13 @@ function Transfers() {
                 <div>
                     <label className="block font-semibold">To Base</label>
                     <select
-                        name="toBaseId"
-                        value={form.toBaseId}
+                        name="toBase"
+                        value={form.toBase}
                         onChange={handleChange}
                         className="input w-full mb-4"
                         required
                     > 
+                    <option value="">Select Option</option>
                         {bases.map((base) => (
                             <option key={base._id} value={base._id}>
                             {base.name}
@@ -151,8 +154,8 @@ function Transfers() {
                             <td className="px-3 py-2">{i + 1}</td>
                             <td className="px-3 py-2">{t.assetType}</td>
                             <td className="px-3 py-2">{t.quantity}</td>
-                            <td className="px-3 py-2">{t.fromBase?.name || t.fromBaseId}</td>
-                            <td className="px-3 py-2">{t.baseId.name || t.toBaseId}</td>
+                            <td className="px-3 py-2">{t.fromBase?.name || t.fromBase}</td>
+                            <td className="px-3 py-2">{t.toBase.name || t.toBase}</td>
                             <td className="px-3 py-2">{new Date(t.createdAt).toLocaleDateString()}</td>
                         </tr>
                         ))}

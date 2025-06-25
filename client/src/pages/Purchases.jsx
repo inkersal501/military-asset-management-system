@@ -34,6 +34,7 @@ function Purchases() {
         e.preventDefault();
         try {
             await addPurchase(form, token);
+            toast.success("Logged purchase.");
             setForm({ assetType: "", quantity: "", baseId: "" });
             fetchPurchases();
         } catch (error) {
@@ -110,6 +111,7 @@ function Purchases() {
                         className="input w-full mb-4"
                         required
                         > 
+                        <option value="">Select Option</option>
                         {bases.map((base) => (
                             <option key={base._id} value={base._id}>
                             {base.name}
